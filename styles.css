@@ -3,16 +3,64 @@ body {
   width: 100dvw;
   height: 100dvh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 #board {
-  width: 250px;
-  height: 250px;
-  border: 1px solid black;
   display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  border: 1px solid black;
 }
 
 .cell {
+  height: 100px;
+  width: 100px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s;
+  box-sizing: border-box;
+}
+
+.cell:hover {
+  background-color: cyan;
+}
+
+.circle {
+  width: 60%;
+  height: 60%;
+  border: 4px solid blue;
+  border-radius: 50%;
+}
+
+.cross {
+  width: 60%;
+  height: 60%;
+  position: relative;
+}
+
+.line1 {
+  width: 142%;
+  height: 142%;
+  border-bottom: 4px solid red;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: rotate(-45deg);
+  transform-origin: bottom left;
+}
+
+.line2 {
+  width: 142%;
+  height: 142%;
+  border-bottom: 4px solid red;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: rotate(45deg);
+  transform-origin: bottom right;
 }
