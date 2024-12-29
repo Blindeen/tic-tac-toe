@@ -7,7 +7,10 @@ class BoardObject {
   constructor() {
     this.element = document.getElementById("board")! as HTMLDivElement;
     this.cellObjects = [];
+    this.configure();
+  }
 
+  private configure() {
     const cellElements = this.element.querySelectorAll(".cell");
     cellElements.forEach((el, idx) => {
       const cellElement = el as HTMLDivElement;
