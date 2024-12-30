@@ -1,13 +1,4 @@
-@keyframes reveal {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
+/* Body styles */
 body {
   margin: 0;
   width: 100dvw;
@@ -19,12 +10,14 @@ body {
   font-family: Tahoma, sans-serif;
 }
 
+/* Header styles */
 #header {
   display: flex;
   align-items: center;
   gap: 25px;
 }
 
+/* Board styles */
 #board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -32,6 +25,7 @@ body {
   border: 1px solid black;
 }
 
+/* Cell styles */
 .cell {
   height: 100px;
   width: 100px;
@@ -49,16 +43,38 @@ body {
   background-color: rgb(211, 255, 255);
 }
 
+/* Circle styles */
+@keyframes draw-circle {
+  from {
+    border-width: 0;
+  }
+
+  to {
+    border-width: 100%;
+  }
+}
+
 .circle {
   width: 60%;
   height: 60%;
   border: 4px solid blue;
   border-radius: 50%;
-  animation: reveal 0.5s;
+  animation: draw-circle 100ms linear;
 
   &.small {
     width: 20px;
     height: 20px;
+  }
+}
+
+/* Cross styles */
+@keyframes draw-cross {
+  from {
+    height: 0;
+  }
+
+  to {
+    height: 138%;
   }
 }
 
@@ -66,7 +82,6 @@ body {
   width: 60%;
   height: 60%;
   position: relative;
-  animation: reveal 0.5s;
 
   &.small {
     width: 20px;
@@ -74,26 +89,24 @@ body {
   }
 }
 
+.cross::after,
 .cross::before {
   position: absolute;
-  left: -2px;
   bottom: 0;
   height: 138%;
   width: 4px;
   content: " ";
   background-color: red;
-  transform: rotate(45deg);
   transform-origin: bottom;
+  animation: draw-cross 0.5s;
+}
+
+.cross::before {
+  left: -2px;
+  transform: rotate(45deg);
 }
 
 .cross::after {
-  position: absolute;
   right: -2px;
-  bottom: 0;
-  height: 138%;
-  width: 4px;
-  content: " ";
-  background-color: red;
   transform: rotate(-45deg);
-  transform-origin: bottom;
 }
