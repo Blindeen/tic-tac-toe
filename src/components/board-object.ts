@@ -1,4 +1,5 @@
 import { CellObject } from "./cell-object";
+import { AutoBind } from "../utilities/autobind";
 
 class BoardObject {
   private element: HTMLDivElement;
@@ -12,12 +13,15 @@ class BoardObject {
 
   private configure() {
     const cellElements = this.element.querySelectorAll(".cell");
-    cellElements.forEach((el, idx) => {
-      const cellElement = el as HTMLDivElement;
-      const cellId = idx + 1;
-      const newCellObject = new CellObject(cellElement, cellId);
-      this.cellObjects.push(newCellObject);
-    });
+    cellElements.forEach(this.initializeCellObject);
+  }
+
+  @AutoBind
+  private initializeCellObject(element: Element, index: number) {
+    const cellElement = element as HTMLDivElement;
+    const cellId = index + 1;
+    const newCellObject = new CellObject(cellElement, cellId);
+    this.cellObjects.push(newCellObject);
   }
 }
 
