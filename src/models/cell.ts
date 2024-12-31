@@ -5,8 +5,8 @@ enum CellStatus {
 }
 
 class Cell {
-  private id: number;
-  private status: CellStatus;
+  public id: number;
+  public status: CellStatus;
 
   constructor(id: number) {
     this.id = id;
@@ -14,4 +14,4 @@ class Cell {
   }
 }
 
-export { Cell };
+export { Cell, CellStatus };

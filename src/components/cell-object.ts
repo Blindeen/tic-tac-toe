@@ -1,4 +1,4 @@
-import { Cell } from "../models/cell";
+import { Cell, CellStatus } from "../models/cell";
 import { AutoBind } from "../utilities/autobind";
 
 class CellObject {
@@ -16,15 +16,18 @@ class CellObject {
   }
 
   @AutoBind
-  private onCellClick(event: Event) {
-    const shapeTemplate = document.getElementById(
-      "circle-template"
-    )! as HTMLTemplateElement;
-    const newShape = document.importNode(
-      shapeTemplate.content.firstElementChild!,
-      true
-    );
-    this.element.appendChild(newShape);
+  private onCellClick(_: Event) {
+    if (this.cell.status === CellStatus.Empty) {
+      const shapeTemplate = document.getElementById(
+        "circle-template"
+      )! as HTMLTemplateElement;
+      const newShape = document.importNode(
+        shapeTemplate.content.firstElementChild!,
+        true
+      );
+      this.cell.status = CellStatus.Circle;
+      this.element.appendChild(newShape);
+    }
   }
 }
 
