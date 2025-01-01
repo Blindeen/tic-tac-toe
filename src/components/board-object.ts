@@ -1,6 +1,7 @@
 import { CellObject } from "./cell-object";
 import { AutoBind } from "../utilities/autobind";
 import { gameState } from "../state/game-state";
+import { Cell } from "../models/cell";
 
 class BoardObject {
   private element: HTMLDivElement;
@@ -14,14 +15,15 @@ class BoardObject {
 
   private configure() {
     const cellElements = this.element.querySelectorAll(".cell");
-    cellElements.forEach(this.initializeCellObject);
+    cellElements.forEach(this.initializeCell);
   }
 
   @AutoBind
-  private initializeCellObject(element: Element, index: number) {
+  private initializeCell(element: Element, index: number) {
     const cellElement = element as HTMLDivElement;
-    const cell = gameState.cells[index];
-    const newCellObject = new CellObject(cellElement, cell);
+    const newCell = new Cell(index + 1);
+    const newCellObject = new CellObject(cellElement, newCell);
+    gameState.cells.push(newCell);
     this.cellObjects.push(newCellObject);
   }
 }

@@ -14,12 +14,6 @@ class GameState {
   private constructor() {
     this._cells = [];
     this._turn = TurnStatus.Circle;
-    this.configure();
-  }
-
-  private configure() {
-    const cellElements = document.querySelectorAll(".cell");
-    cellElements.forEach((_, idx) => this._cells.push(new Cell(idx + 1)));
   }
 
   public static getInstance() {
