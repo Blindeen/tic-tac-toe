@@ -1,5 +1,6 @@
 import { CellObject } from "./cell-object";
 import { AutoBind } from "../utilities/autobind";
+import { gameState } from "../state/game-state";
 
 class BoardObject {
   private element: HTMLDivElement;
@@ -19,8 +20,8 @@ class BoardObject {
   @AutoBind
   private initializeCellObject(element: Element, index: number) {
     const cellElement = element as HTMLDivElement;
-    const cellId = index + 1;
-    const newCellObject = new CellObject(cellElement, cellId);
+    const cell = gameState.cells[index];
+    const newCellObject = new CellObject(cellElement, cell);
     this.cellObjects.push(newCellObject);
   }
 }

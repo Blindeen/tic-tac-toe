@@ -6,9 +6,9 @@ class CellObject {
   private element: HTMLDivElement;
   private cell: Cell;
 
-  constructor(element: HTMLDivElement, id: number) {
+  constructor(element: HTMLDivElement, cell: Cell) {
     this.element = element;
-    this.cell = new Cell(id);
+    this.cell = cell;
     this.configure();
   }
 
