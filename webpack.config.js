@@ -9,6 +9,9 @@ module.exports = {
         directory: path.join(__dirname),
       },
     ],
+    client: {
+      logging: "warn",
+    },
   },
   output: {
     filename: "app.js",
