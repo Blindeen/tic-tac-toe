@@ -18,7 +18,7 @@ class CellObject {
 
   @AutoBind
   private onCellClick(_: Event) {
-    if (this.cell.status === CellStatus.Empty) {
+    if (!gameState.isGameFinished && this.cell.status === CellStatus.Empty) {
       const newShape = this.generateNewShape();
       this.cell.status =
         gameState.turn === TurnStatus.Circle
