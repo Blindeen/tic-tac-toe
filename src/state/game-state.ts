@@ -73,7 +73,14 @@ class GameState {
       return true;
     }
 
-    return this._cells.every((cell) => cell.status !== CellStatus.Empty);
+    const areAllCellsNotEmpty = this._cells.every(
+      (cell) => cell.status !== CellStatus.Empty
+    );
+    if (areAllCellsNotEmpty) {
+      this._isGameFinished = true;
+    }
+
+    return areAllCellsNotEmpty;
   }
 
   public static getInstance() {
