@@ -8,79 +8,64 @@ enum TurnStatus {
 class GameState {
   private static instance: GameState;
 
+  private _dimension: number;
   private _cells: Cell[];
   private _turn: TurnStatus;
   private _isGameFinished: boolean;
+  private _winningCombinations: [number, number, number][];
 
   private constructor() {
+    this._dimension = 3;
     this._cells = [];
     this._turn = TurnStatus.Circle;
     this._isGameFinished = false;
+    this._winningCombinations = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+    this.configure();
   }
 
-  private containsSameShape(axis: Cell[]) {
-    const containsOnlyCircle = axis.every(
-      (cell) => cell.status === CellStatus.Circle
+  private configure() {
+    const numberOfCells = Math.pow(this._dimension, 2);
+    for (let i = 0; i < numberOfCells; i++) {
+      this._cells.push(new Cell(i));
+    }
+  }
+
+  private containsSameShape(combination: [number, number, number]) {
+    const containsOnlyCircle = combination.every(
+      (idx) => this._cells[idx].status === CellStatus.Circle
     );
-    const containsOnlyCross = axis.every(
-      (cell) => cell.status === CellStatus.Cross
+    const containsOnlyCross = combination.every(
+      (idx) => this._cells[idx].status === CellStatus.Cross
     );
 
     return containsOnlyCircle || containsOnlyCross;
   }
 
   private isGameOver() {
-    const dimension = Math.sqrt(this._cells.length);
-
-    for (let i = 0; i < this._cells.length; i += dimension) {
-      const row = this._cells.slice(i, i + dimension);
-      if (this.containsSameShape(row)) {
+    for (const combination of this._winningCombinations) {
+      if (this.containsSameShape(combination)) {
         this._isGameFinished = true;
         return true;
       }
     }
 
-    for (let i = 0; i < dimension; i++) {
-      const column: Cell[] = [];
-      for (let j = 0; j <= i + 1 + 2 * dimension; j += dimension) {
-        column.push(this._cells[i + j]);
-      }
-      if (this.containsSameShape(column)) {
-        this._isGameFinished = true;
-        return true;
-      }
-    }
-
-    const leftDiagonal: Cell[] = [];
-    for (let i = 0; i < this._cells.length; i += dimension + 1) {
-      leftDiagonal.push(this._cells[i]);
-    }
-    if (this.containsSameShape(leftDiagonal)) {
-      this._isGameFinished = true;
-      return true;
-    }
-
-    const rightDiagonal: Cell[] = [];
-    for (
-      let i = dimension - 1;
-      i < this._cells.length - dimension + 1;
-      i += dimension - 1
-    ) {
-      rightDiagonal.push(this._cells[i]);
-    }
-    if (this.containsSameShape(rightDiagonal)) {
-      this._isGameFinished = true;
-      return true;
-    }
-
-    const areAllCellsNotEmpty = this._cells.every(
+    const isDraw = this._cells.every(
       (cell) => cell.status !== CellStatus.Empty
     );
-    if (areAllCellsNotEmpty) {
+    if (isDraw) {
       this._isGameFinished = true;
     }
 
-    return areAllCellsNotEmpty;
+    return isDraw;
   }
 
   public static getInstance() {

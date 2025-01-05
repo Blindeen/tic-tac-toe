@@ -14,17 +14,22 @@ class BoardObject {
   }
 
   private configure() {
-    const cellElements = this.element.querySelectorAll(".cell");
-    cellElements.forEach(this.initializeCell);
+    const cells = gameState.cells;
+    cells.forEach(this.initializeCell);
   }
 
   @AutoBind
-  private initializeCell(element: Element, index: number) {
-    const cellElement = element as HTMLDivElement;
-    const newCell = new Cell(index + 1);
-    const newCellObject = new CellObject(cellElement, newCell);
-    gameState.cells.push(newCell);
+  private initializeCell(cell: Cell) {
+    const cellTemplate = document.getElementById(
+      "cell-template"
+    )! as HTMLTemplateElement;
+    const cellElement = document.importNode(
+      cellTemplate.content.firstElementChild!,
+      true
+    ) as HTMLDivElement;
+    const newCellObject = new CellObject(cellElement, cell);
     this.cellObjects.push(newCellObject);
+    this.element.appendChild(cellElement);
   }
 }
 
