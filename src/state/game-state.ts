@@ -39,20 +39,15 @@ class GameState {
     }
   }
 
-  private containsSameShape(combination: [number, number, number]) {
-    const containsOnlyCircle = combination.every(
-      (idx) => this._cells[idx].status === CellStatus.Circle
-    );
-    const containsOnlyCross = combination.every(
-      (idx) => this._cells[idx].status === CellStatus.Cross
-    );
-
-    return containsOnlyCircle || containsOnlyCross;
-  }
-
   private isGameOver() {
     for (const combination of this._winningCombinations) {
-      if (this.containsSameShape(combination)) {
+      const containsOnlyCircle = combination.every(
+        (idx) => this._cells[idx].status === CellStatus.Circle
+      );
+      const containsOnlyCross = combination.every(
+        (idx) => this._cells[idx].status === CellStatus.Cross
+      );
+      if (containsOnlyCircle || containsOnlyCross) {
         this._isGameFinished = true;
         return true;
       }
