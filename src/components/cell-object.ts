@@ -38,6 +38,10 @@ class CellObject {
       true
     ) as HTMLDivElement;
   }
+
+  public highlight() {
+    this.element.classList.add("highlight");
+  }
 }
 
 export { CellObject };

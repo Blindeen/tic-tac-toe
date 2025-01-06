@@ -5,17 +5,23 @@ enum TurnStatus {
   Cross,
 }
 
+type Combination = [number, number, number];
+
+type HighlightEvent = (combination: [number, number, number]) => void;
+
 class GameState {
   private static instance: GameState;
 
-  private _dimension: number;
+  private dimension: number;
   private _cells: Cell[];
   private _turn: TurnStatus;
   private _isGameFinished: boolean;
-  private _winningCombinations: [number, number, number][];
+  private _winningCombinations: Combination[];
+  private winningCombination?: Combination;
+  private highlightEvent?: HighlightEvent;
 
   private constructor() {
-    this._dimension = 3;
+    this.dimension = 3;
     this._cells = [];
     this._turn = TurnStatus.Circle;
     this._isGameFinished = false;
@@ -33,7 +39,7 @@ class GameState {
   }
 
   private configure() {
-    const numberOfCells = Math.pow(this._dimension, 2);
+    const numberOfCells = Math.pow(this.dimension, 2);
     for (let i = 0; i < numberOfCells; i++) {
       this._cells.push(new Cell(i));
     }
@@ -47,8 +53,9 @@ class GameState {
       const containsOnlyCross = combination.every(
         (idx) => this._cells[idx].status === CellStatus.Cross
       );
+
       if (containsOnlyCircle || containsOnlyCross) {
-        this._isGameFinished = true;
+        this.winningCombination = combination;
         return true;
       }
     }
@@ -56,9 +63,6 @@ class GameState {
     const isDraw = this._cells.every(
       (cell) => cell.status !== CellStatus.Empty
     );
-    if (isDraw) {
-      this._isGameFinished = true;
-    }
 
     return isDraw;
   }
@@ -83,13 +87,22 @@ class GameState {
   }
 
   public nextTurn() {
-    if (!this.isGameOver()) {
+    if (this.isGameOver()) {
+      this._isGameFinished = true;
+      if (this.highlightEvent && this.winningCombination) {
+        this.highlightEvent(this.winningCombination);
+      }
+    } else {
       this._turn =
         this._turn === TurnStatus.Circle ? TurnStatus.Cross : TurnStatus.Circle;
     }
+  }
+
+  public registerHighlightEvent(event: HighlightEvent) {
+    this.highlightEvent = event;
   }
 }
 
 const gameState = GameState.getInstance();
 
-export { TurnStatus, gameState };
+export { TurnStatus, Combination, gameState };

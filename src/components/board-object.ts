@@ -1,6 +1,6 @@
 import { CellObject } from "./cell-object";
 import { AutoBind } from "../utilities/autobind";
-import { gameState } from "../state/game-state";
+import { Combination, gameState } from "../state/game-state";
 import { Cell } from "../models/cell";
 
 class BoardObject {
@@ -16,6 +16,7 @@ class BoardObject {
   private configure() {
     const cells = gameState.cells;
     cells.forEach(this.initializeCell);
+    gameState.registerHighlightEvent(this.highlightWinningCombination);
   }
 
   @AutoBind
@@ -30,6 +31,11 @@ class BoardObject {
     const newCellObject = new CellObject(cellElement, cell);
     this.cellObjects.push(newCellObject);
     this.element.appendChild(cellElement);
+  }
+
+  @AutoBind
+  private highlightWinningCombination(combination: Combination) {
+    combination.forEach((idx) => this.cellObjects[idx].highlight());
   }
 }
 
