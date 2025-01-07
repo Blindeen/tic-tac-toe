@@ -35,7 +35,9 @@ class BoardObject {
 
   @AutoBind
   private highlightWinningCombination(combination: Combination) {
-    combination.forEach((idx) => this.cellObjects[idx].highlight());
+    combination.forEach((cellIdx, arrIdx) =>
+      setTimeout(() => this.cellObjects[cellIdx].highlight(), arrIdx * 300)
+    );
   }
 }
 
