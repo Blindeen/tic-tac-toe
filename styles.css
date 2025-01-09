@@ -17,6 +17,21 @@ body {
   gap: 25px;
 }
 
+/* Status display styles */
+#status-display {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#shape-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+}
+
 /* Board styles */
 #board {
   display: grid;
