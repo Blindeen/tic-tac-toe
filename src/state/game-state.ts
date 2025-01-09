@@ -7,9 +7,9 @@ enum TurnStatus {
 
 type Combination = [number, number, number];
 
-type HighlightEvent = (combination: [number, number, number]) => void;
+type HighlightEvent = (combination: Combination) => void;
 
-type UpdateStatusEvent = () => void;
+type UpdateStatusEvent = (turn: TurnStatus) => void;
 
 class GameState {
   private static instance: GameState;
@@ -98,7 +98,7 @@ class GameState {
     } else {
       this._turn =
         this._turn === TurnStatus.Circle ? TurnStatus.Cross : TurnStatus.Circle;
-      this.updateStatusEvent?.();
+      this.updateStatusEvent?.(this._turn);
     }
   }
 
@@ -108,6 +108,7 @@ class GameState {
 
   public registerUpdateStatusEvent(event: UpdateStatusEvent) {
     this.updateStatusEvent = event;
+    this.updateStatusEvent(this._turn);
   }
 }
 

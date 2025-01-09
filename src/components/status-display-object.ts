@@ -18,19 +18,17 @@ class StatusDisplayObject {
     this.crossTemplateElement = document.getElementById(
       "cross-template"
     )! as HTMLTemplateElement;
-
     this.configure();
   }
 
   private configure() {
     gameState.registerUpdateStatusEvent(this.drawCurrentShape);
-    this.drawCurrentShape();
   }
 
   @AutoBind
-  private drawCurrentShape() {
+  private drawCurrentShape(turn: TurnStatus) {
     const shapeTemplate =
-      gameState.turn === TurnStatus.Circle
+      turn === TurnStatus.Circle
         ? this.circleTemplateElement
         : this.crossTemplateElement;
     const shapeElement = document.importNode(
