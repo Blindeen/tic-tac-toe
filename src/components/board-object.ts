@@ -5,10 +5,14 @@ import { Cell } from "../models/cell";
 
 class BoardObject {
   private element: HTMLDivElement;
+  private cellTemplateElement: HTMLTemplateElement;
   private cellObjects: CellObject[];
 
   constructor() {
     this.element = document.getElementById("board")! as HTMLDivElement;
+    this.cellTemplateElement = document.getElementById(
+      "cell-template"
+    )! as HTMLTemplateElement;
     this.cellObjects = [];
     this.configure();
   }
@@ -21,11 +25,8 @@ class BoardObject {
 
   @AutoBind
   private initializeCell(cell: Cell) {
-    const cellTemplate = document.getElementById(
-      "cell-template"
-    )! as HTMLTemplateElement;
     const cellElement = document.importNode(
-      cellTemplate.content.firstElementChild!,
+      this.cellTemplateElement.content.firstElementChild!,
       true
     ) as HTMLDivElement;
     const newCellObject = new CellObject(cellElement, cell);
