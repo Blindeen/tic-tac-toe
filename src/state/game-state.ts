@@ -9,6 +9,8 @@ type Combination = [number, number, number];
 
 type HighlightEvent = (combination: [number, number, number]) => void;
 
+type UpdateStatusEvent = () => void;
+
 class GameState {
   private static instance: GameState;
 
@@ -19,6 +21,7 @@ class GameState {
   private _winningCombinations: Combination[];
   private winningCombination?: Combination;
   private highlightEvent?: HighlightEvent;
+  private updateStatusEvent?: UpdateStatusEvent;
 
   private constructor() {
     this.dimension = 3;
@@ -95,11 +98,16 @@ class GameState {
     } else {
       this._turn =
         this._turn === TurnStatus.Circle ? TurnStatus.Cross : TurnStatus.Circle;
+      this.updateStatusEvent?.();
     }
   }
 
   public registerHighlightEvent(event: HighlightEvent) {
     this.highlightEvent = event;
+  }
+
+  public registerUpdateStatusEvent(event: UpdateStatusEvent) {
+    this.updateStatusEvent = event;
   }
 }
 

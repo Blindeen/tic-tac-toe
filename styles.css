@@ -20,16 +20,17 @@ body {
 /* Status display styles */
 #status-display {
   display: flex;
+  align-items: center;
   gap: 10px;
   margin-bottom: 20px;
 }
 
-#shape-wrapper {
+#shape-slot {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
 }
 
 /* Board styles */
