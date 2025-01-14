@@ -3,21 +3,17 @@ import { TurnStatus, gameState } from "../state/game-state";
 
 class StatusDisplayObject {
   private element: HTMLDivElement;
-  private shapeSlotElement: HTMLDivElement;
-  private circleTemplateElement: HTMLTemplateElement;
-  private crossTemplateElement: HTMLTemplateElement;
+  private circleIndicatorElement: HTMLDivElement;
+  private crossIndicatorElement: HTMLDivElement;
 
   constructor() {
     this.element = document.getElementById("status-display")! as HTMLDivElement;
-    this.shapeSlotElement = this.element.querySelector(
-      "#shape-slot"
+    this.circleIndicatorElement = this.element.querySelector(
+      ".indicator.circle-indicator"
     )! as HTMLDivElement;
-    this.circleTemplateElement = document.getElementById(
-      "circle-template"
-    )! as HTMLTemplateElement;
-    this.crossTemplateElement = document.getElementById(
-      "cross-template"
-    )! as HTMLTemplateElement;
+    this.crossIndicatorElement = this.element.querySelector(
+      ".indicator.cross-indicator"
+    )! as HTMLDivElement;
     this.configure();
   }
 
@@ -27,16 +23,13 @@ class StatusDisplayObject {
 
   @AutoBind
   private drawCurrentShape(turn: TurnStatus) {
-    const shapeTemplate =
-      turn === TurnStatus.Circle
-        ? this.circleTemplateElement
-        : this.crossTemplateElement;
-    const shapeElement = document.importNode(
-      shapeTemplate.content.firstElementChild!,
-      true
-    );
-    this.shapeSlotElement.innerHTML = "";
-    this.shapeSlotElement.appendChild(shapeElement);
+    if (turn === TurnStatus.Circle) {
+      this.circleIndicatorElement.classList.add("active-indicator");
+      this.crossIndicatorElement.classList.remove("active-indicator");
+    } else {
+      this.circleIndicatorElement.classList.remove("active-indicator");
+      this.crossIndicatorElement.classList.add("active-indicator");
+    }
   }
 }
 

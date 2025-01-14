@@ -20,22 +20,30 @@ body {
 /* Status display styles */
 #status-display {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 10px;
-  width: 340px;
+  width: 350px;
   margin-bottom: 20px;
   padding: 1rem;
-  border-radius: 16px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 }
 
-#shape-slot {
+.indicator {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 30px;
   height: 30px;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  opacity: 0.5;
+  transition: opacity 0.5s;
+}
+
+.active-indicator {
+  opacity: 1;
+  transition: opacity 0.5s;
 }
 
 /* Board styles */
