@@ -8,6 +8,8 @@ Tic-tac-toe game written in TypeScript language embracing obtained TypeScript kn
 ## Overview
 ![tic-tac-toe-gameplay-screenshot-1](https://github.com/user-attachments/assets/f2b865bd-243d-4f74-abd9-571c8d121247)
 ![tic-tac-toe-gameplay-screenshot-2](https://github.com/user-attachments/assets/8d85b6da-8e8f-4dbf-8d92-d1960e4e6273)
+## Requirements
+- NodeJS
 ## How to run
 ### Clone
 ```bash
