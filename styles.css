@@ -20,12 +20,11 @@ body {
 /* Status display styles */
 #status-display {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   gap: 10px;
-  width: 350px;
+  width: 380px;
   margin-bottom: 20px;
-  padding: 1rem;
 }
 
 .indicator {
@@ -37,7 +36,7 @@ body {
   padding: 1rem;
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-  opacity: 0.5;
+  opacity: 0.3;
   transition: opacity 0.5s;
 }
 
@@ -71,7 +70,7 @@ body {
   border-radius: 8px;
 
   &:hover:not(.highlight) {
-    background-color: lavender;
+    background-color: ghostwhite;
   }
 }
 
