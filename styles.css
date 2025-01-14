@@ -20,9 +20,14 @@ body {
 /* Status display styles */
 #status-display {
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 10px;
+  width: 340px;
   margin-bottom: 20px;
+  padding: 1rem;
+  border-radius: 16px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 }
 
 #shape-slot {
